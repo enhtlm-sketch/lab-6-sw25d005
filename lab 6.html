@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        div{
+            border: 1px solid black;   
+            border-radius: 2px;
+            background-color: rgb(25, 29, 233);
+            margin:5px;
+            padding:5px;
+        }
+
+        button {
+            background-color: rgb(30, 255, 0);
+        }
+    </style>
+</head>
+<body>
+
+    <input type="text" id="ner" placeholder="Нэр">
+    <input type="text" id="ovog" placeholder="Овог">
+    <button id="btn">Нэмэх</button>
+
+    <div id="show"></div>
+
+<script>
+    let ner = document.getElementById("ner");
+    let ovog = document.getElementById("ovog");
+    let show = document.getElementById("show");
+
+    let saveArray = JSON.parse(localStorage.getItem("hunStorage")) || [];
+    divHaruulah();
+    document.getElementById("btn").addEventListener("click", function () {
+        let hunObject = {
+            ner: ner.value,
+            ovog: ovog.value
+        };
+        saveArray.push(hunObject);
+        localStorage.setItem("hunStorage", JSON.stringify(saveArray));
+        divHaruulah();
+    });
+
+    function divHaruulah() {
+
+        show.innerHTML = "";
+
+        saveArray.forEach(function(hun){
+            let div = document.createElement("div");
+            div.innerHTML = hun.ovog + " " + hun.ner;
+            show.appendChild(div);
+        });
+    }
+</script>
+
+</body>
+</html>
